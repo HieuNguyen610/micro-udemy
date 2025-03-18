@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -30,5 +32,10 @@ public class UserServiceImpl implements UserService {
                 .build();
         User savedUser = userRepository.save(entity);
         return entityConverter.convertUserEntityToResponse(savedUser);
+    }
+
+    @Override
+    public List<UserResponse> findAllUsers() {
+        return entityConverter.convertUserEntitiesToResponses(userRepository.findAll());
     }
 }

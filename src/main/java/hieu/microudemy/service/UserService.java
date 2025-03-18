@@ -9,4 +9,6 @@ public interface UserService {
     UserResponse createUser(UserCreateRequest request);
 
     List<UserResponse> findAllUsers();
+
+    UserResponse findUserById(Long id);
 }

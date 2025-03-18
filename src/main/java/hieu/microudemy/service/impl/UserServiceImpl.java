@@ -38,4 +38,10 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> findAllUsers() {
         return entityConverter.convertUserEntitiesToResponses(userRepository.findAll());
     }
+
+    @Override
+    public UserResponse findUserById(Long id) {
+        return entityConverter.convertUserEntityToResponse(userRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Could not find user with id " + id)));
+    }
 }

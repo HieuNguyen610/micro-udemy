@@ -34,4 +34,13 @@ public class UserController {
                         .data(responses) // Placeholder for actual data
                 .build());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse> getUserById(@PathVariable Long id) {
+        UserResponse response = userService.findUserById(id);
+        return ResponseEntity.ok(ApiResponse.builder()
+                        .message("Get user by ID successfully")
+                        .data(response) // Placeholder for actual data
+                .build());
+    }
 }

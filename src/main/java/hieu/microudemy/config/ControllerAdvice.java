@@ -19,7 +19,7 @@ public class ControllerAdvice {
     public ResponseEntity<ApiResponse> resourceNotFoundException(Exception ex, WebRequest request) {
         return ResponseEntity.ok(ApiResponse.builder()
                         .message(ex.getMessage())
-                        .data(ex.getStackTrace())
+                        .data(request.getUserPrincipal())
                 .build());
     }
 }

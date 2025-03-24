@@ -30,6 +30,7 @@ public class EmailServiceImpl implements EmailService {
         String htmlContent = templateEngine.process("welcome-email", context);
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
         helper.setTo(request.getTo());
         helper.setSubject("Welcome to Our Service");
         helper.setText(htmlContent, true);

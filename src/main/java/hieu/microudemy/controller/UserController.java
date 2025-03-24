@@ -54,4 +54,14 @@ public class UserController {
                         .data(response) // Placeholder for actual data
                 .build());
     }
+
+    @GetMapping("/stats/all")
+    public ResponseEntity<ApiResponse> getAllStatistic() {
+        try {
+            Thread.sleep(10_000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statisticService.getAllStatistics();
+    }
 }

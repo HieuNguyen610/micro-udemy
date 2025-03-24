@@ -1,8 +1,10 @@
 package hieu.microudemy.controller;
 
+import hieu.microudemy.request.MessageRequest;
 import hieu.microudemy.request.UserCreateRequest;
 import hieu.microudemy.response.ApiResponse;
 import hieu.microudemy.response.UserResponse;
+import hieu.microudemy.service.StatisticService;
 import hieu.microudemy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +18,21 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final StatisticService statisticService;
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createUser(@RequestBody UserCreateRequest request) {
+        UserResponse response = userService.createUser(request);
+        MessageRequest msgRequest = MessageRequest.builder()
+                .from(request.getName())
+                .to(response.getName())
+                .subject("Create user")
+                .text("Congratulations for creating a new user with name : " + request.getName())
+                .build();
+        statisticService.send(msgRequest);
         return ResponseEntity.ok(ApiResponse.builder()
                         .message("Create user successfully")
-                        .data(userService.createUser(request))
+                        .data(response)
                 .build());
     }
 

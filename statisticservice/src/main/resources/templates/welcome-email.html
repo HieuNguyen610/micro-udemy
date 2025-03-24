@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Welcome, <span th:text="${name}">User</span>!</h2>
+    <p th:text="${content}">Thank you for joining us!</p>
+    <p>We’re excited to have you on board. If you have any questions, feel free to reach out.</p>
+    <p>Best Regards,<br><strong>Your Company Name</strong></p>
+    <div class="footer">
+        <p>&copy; 2025 Your Company Name. All Rights Reserved.</p>
+    </div>
+</div>
+</body>
+</html>

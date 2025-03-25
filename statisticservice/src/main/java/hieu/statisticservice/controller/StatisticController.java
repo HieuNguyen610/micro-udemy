@@ -21,7 +21,7 @@ public class StatisticController {
     private final StatisticService statisticService;
     private final EmailService emailService;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<ApiResponse> getStatistics() {
         List<StatisticResponse> responses = statisticService.getAll();
         return ResponseEntity.ok(ApiResponse.builder()
@@ -30,7 +30,7 @@ public class StatisticController {
                 .build());
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     public ResponseEntity<ApiResponse> add(@RequestBody StatisticRequest request) {
         StatisticResponse responses = statisticService.add(request);
         return ResponseEntity.ok(ApiResponse.builder()

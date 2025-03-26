@@ -8,11 +8,13 @@ import hieu.microudemy.response.UserResponse;
 import hieu.microudemy.service.UserService;
 import hieu.microudemy.utils.EntityConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> findAllUsers() {
+        log.info("Get all users service");
         return entityConverter.convertUserEntitiesToResponses(userRepository.findAll());
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-@Slf4j
+@Slf4j(topic = "USER-CONTROLLER")
 public class UserController {
 
     private final UserService userService;
@@ -41,6 +41,7 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<ApiResponse> getAllUsers() {
         // Implement logic to get all users
+        log.info("Get all users ");
         List<UserResponse> responses = userService.findAllUsers();
         return ResponseEntity.ok(ApiResponse.builder()
                         .message("Get all users successfully")

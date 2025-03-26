@@ -6,6 +6,7 @@ import hieu.statisticservice.request.StatisticRequest;
 import hieu.statisticservice.response.StatisticResponse;
 import hieu.statisticservice.service.StatisticService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j(topic = "STATISTIC-SERVICE")
 public class StatisticServiceImpl implements StatisticService {
 
     private final StatisticRepository statisticRepository;
@@ -31,6 +33,7 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<StatisticResponse> getAll() {
+        log.info("Get all statistics");
         return convertEntitiesToResponses(statisticRepository.findAll());
     }
 

@@ -8,6 +8,7 @@ import hieu.statisticservice.service.EmailService;
 import hieu.statisticservice.service.StatisticService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/statistics")
+@Slf4j(topic = "STATISTIC-CONTROLLER")
 public class StatisticController {
 
     private final StatisticService statisticService;
@@ -23,6 +25,7 @@ public class StatisticController {
 
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getStatistics() {
+        log.info("Get all statistics");
         List<StatisticResponse> responses = statisticService.getAll();
         return ResponseEntity.ok(ApiResponse.builder()
                         .data(responses)

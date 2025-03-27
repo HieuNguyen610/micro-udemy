@@ -9,6 +9,7 @@ import hieu.microudemy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class UserController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
     public ResponseEntity<ApiResponse> getAllUsers() {
         // Implement logic to get all users
         log.info("Get all users ");
@@ -49,6 +51,7 @@ public class UserController {
                 .build());
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getUserById(@PathVariable Long id) {
         UserResponse response = userService.findUserById(id);
@@ -58,6 +61,7 @@ public class UserController {
                 .build());
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
     @GetMapping("/stats/all")
     public ResponseEntity<ApiResponse> getAllStatistic() {
         try {

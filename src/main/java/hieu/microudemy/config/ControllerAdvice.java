@@ -13,8 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 @RequiredArgsConstructor
 public class ControllerAdvice {
 
-    @ExceptionHandler(value = {Exception.class
-    })
+    @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiResponse> resourceNotFoundException(Exception ex, WebRequest request) {
         return ResponseEntity.ok(ApiResponse.builder()

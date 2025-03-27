@@ -6,10 +6,10 @@ import hieu.microudemy.response.ApiResponse;
 import hieu.microudemy.response.UserResponse;
 import hieu.microudemy.service.StatisticService;
 import hieu.microudemy.service.UserService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("")
-    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
+//    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
     public ResponseEntity<ApiResponse> getAllUsers() {
         // Implement logic to get all users
         log.info("Get all users ");
@@ -51,7 +51,7 @@ public class UserController {
                 .build());
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
+    @CircuitBreaker(name = "getUserById", fallbackMethod = "fallbackGetUserById")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getUserById(@PathVariable Long id) {
         UserResponse response = userService.findUserById(id);
@@ -61,7 +61,15 @@ public class UserController {
                 .build());
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_read') && hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse> fallbackGetUserById(Long id, Throwable ex) {
+        log.error("Fallback getUserById: " + id);
+        return ResponseEntity.status(500)
+                       .body(ApiResponse.builder()
+                                .message("Failed to get user by ID (fallback from circuitbreaker) ")
+                                .data("User not found with ID: " + id)
+                        .build());
+    }
+
     @GetMapping("/stats/all")
     public ResponseEntity<ApiResponse> getAllStatistic() {
         try {

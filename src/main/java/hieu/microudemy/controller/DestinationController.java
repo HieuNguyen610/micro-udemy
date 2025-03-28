@@ -20,7 +20,7 @@ public class DestinationController {
 
     //Rest API to test circuit breaker
     @GetMapping("/travelDestination")
-    public ResponseEntity<TravelDestination> getDestinationDetails(@RequestParam(defaultValue = "hanoi") String location, @RequestParam(defaultValue = "vietnam") String country){
+    public ResponseEntity<TravelDestination> getDestinationDetails(@RequestParam(defaultValue = "hanoi") String location, @RequestParam(defaultValue = "vietnam") String country) throws InterruptedException {
         TravelDestination travelDestination = travelDestinationService.getDestinationDetails(location,country);
         return new ResponseEntity<>(travelDestination, HttpStatus.OK);
     }

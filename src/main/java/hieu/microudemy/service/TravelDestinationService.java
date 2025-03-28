@@ -8,7 +8,7 @@ import hieu.microudemy.entity.TravelDestination;
  */
 public interface TravelDestinationService {
 
-	TravelDestination getDestinationDetails(String destinationName, String country);
+	TravelDestination getDestinationDetails(String destinationName, String country) throws InterruptedException;
 	
 	String getAttractions(String destinationName,String country);
 }

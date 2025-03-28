@@ -31,10 +31,13 @@ public class TravelDestinationServiceImpl implements TravelDestinationService {
 
 	@Override
 	@CircuitBreaker(name = "travelDestination", fallbackMethod = "fallbackTravelDestination")
-	public TravelDestination getDestinationDetails(String destinationName, String country) {
+	public TravelDestination getDestinationDetails(String destinationName, String country) throws InterruptedException {
 
 		if (destinationName.equals("hcm")) {
 			throw new IllegalArgumentException("Invalid destination");
+		}
+		if (destinationName.equals("hue")) {
+			Thread.sleep(10_000);
 		}
 		return TravelDestination.builder()
 				.name(destinationName)
